@@ -9,7 +9,8 @@
 </template>
 <script setup>
 import Rowitem from "../../components/home/Rowitem.vue";
-import { reactive, computed } from "vue";
+import { reactive, computed, defineProps } from "vue";
+import { useReady } from "@tarojs/taro";
 import _ from "lodash";
 
 const forYous = reactive([
@@ -18,8 +19,15 @@ const forYous = reactive([
 ]);
 
 const forYouList = computed(() => {
-  return _.chunk(forYous, 2);
+  // return _.chunk(forYous, 2);
+  return _.chunk(props.list, 2);
 });
+
+const props = defineProps({
+  list: Array,
+  number: String,
+});
+console.log("props");
 </script>
 
 <style>

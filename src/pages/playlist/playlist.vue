@@ -1,17 +1,28 @@
 <template>
   <view class="index">
-    <text>{{ msg }}</text>
+    <text>{{ playlistId }}</text>
   </view>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import "./playlist.scss";
-import { useDidShow, useRouter } from "@tarojs/taro";
+import Taro from "@tarojs/taro";
+
+import { useDidShow, useRouter, useReady } from "@tarojs/taro";
 
 // useDidShow(() => console.log("onShow"));
-const router = useRouter();
-console.log(router.params.id);
 
-const msg = ref("playlist");
+const playlistId = useRouter().params.id;
+const getData = async () => {
+  const res = await Taro.request({
+    url: "https://music.qier222.com/api/playlist/detail?id=5277965913",
+  });
+  console.log(res.data);
+};
+getData();
+
+useReady(() => {
+  console.log("onReady");
+});
 </script>
